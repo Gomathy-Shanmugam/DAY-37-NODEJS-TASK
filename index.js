@@ -48,27 +48,49 @@ app.get('/readAll', (req, res) => {
 
 
 // renaming of file name 
+// app.get('/renamesync', (req, res) => {
+//   const readdata = format(new Date(), "dd mm yyyy hh mm ss");
+//   const folderPath = 'Time';
+//   const newfilepath = "Time/16-03-2024-4.00.txt"
+//   const oldfilepath = "Time/18-08-2023-11.00.txt"
+
+//   const data = fs.renameSync( oldfilepath, newfilepath )
+// try{
+//   function getCurrentFilenames() { 
+//     console.log('File renamed successfully.');
+//     getCurrentFilenames();
+//     fs.readdirSync(folderPath).forEach(file => { 
+//       console.log(file); 
+//       res.status(200).json({ message: 'File renamed successfully.' });
+//     }); 
+//   } 
+// }catch(err){
+//   console.log("Files are not renamed");
+//   res.status(404).json({ message: 'File renamed successfully.' });
+// }
+// });
+
+
+
+
 app.get('/renamesync', (req, res) => {
-  const readdata = format(new Date(), "dd mm yyyy hh mm ss");
   const folderPath = 'Time';
-  const newfilepath = "Time/16-03-2024-4.00.txt"
-  const oldfilepath = "Time/18-08-2023-11.00.txt"
+  const oldfilename = "18-08-2023-11.00.txt";
+  const newfilename = "16-03-2024-4.00.txt";
 
-  const data = fs.renameSync( oldfilepath, newfilepath )
-try{
-  function getCurrentFilenames() { 
+  const oldfilepath = `${folderPath}/${oldfilename}`;
+  const newfilepath = `${folderPath}/${newfilename}`;
+
+  try {
+    fs.renameSync(oldfilepath, newfilepath);
     console.log('File renamed successfully.');
-    getCurrentFilenames();
-    fs.readdirSync(folderPath).forEach(file => { 
-      console.log(file); 
-      res.status(200).json({ message: 'File renamed successfully.' });
-    }); 
-  } 
-}catch(err){
-  console.log("Files are not renamed");
-  res.status(404).json({ message: 'File renamed successfully.' });
-}
+    const files = fs.readdirSync(folderPath);
+    console.log(files);
+    res.status(200).json({ message: 'File renamed successfully.', files });
+  } catch (err) {
+    console.error("Files are not renamed:", err);
+    res.status(404).json({ error: 'Failed to rename file.' });
+  }
 });
-
 
 app.listen(PORT,() => console.log ("Server is responding", PORT))
