@@ -45,34 +45,7 @@ app.get('/readAll', (req, res) => {
 });
 
 
-
-
-// renaming of file name 
-// app.get('/renamesync', (req, res) => {
-//   const readdata = format(new Date(), "dd mm yyyy hh mm ss");
-//   const folderPath = 'Time';
-//   const newfilepath = "Time/16-03-2024-4.00.txt"
-//   const oldfilepath = "Time/18-08-2023-11.00.txt"
-
-//   const data = fs.renameSync( oldfilepath, newfilepath )
-// try{
-//   function getCurrentFilenames() { 
-//     console.log('File renamed successfully.');
-//     getCurrentFilenames();
-//     fs.readdirSync(folderPath).forEach(file => { 
-//       console.log(file); 
-//       res.status(200).json({ message: 'File renamed successfully.' });
-//     }); 
-//   } 
-// }catch(err){
-//   console.log("Files are not renamed");
-//   res.status(404).json({ message: 'File renamed successfully.' });
-// }
-// });
-
-
-
-
+// renaming a file
 app.get('/renamesync', (req, res) => {
   const folderPath = 'Time';
   const oldfilename = "18-08-2023-11.00.txt";
